@@ -18,7 +18,13 @@ app.get("/check/:zip", validateZip, (req, res, next) => {
 
 app.get("/zoos/:zip", validateZip, (req, res, next) => {
     const { zip } = req.params;
-    res.send(getZoos(zip));
+    const zoos = getZoos(zip);
+    if(!zoos || !zoos.length){
+        res.send(`${zip} has no zoos.`)
+    } else {
+        res.send(`${zip} zoos: ${zoos.join("; ")}`)
+    }
+    
 });
 
 // app.get("/zoos/all", getZoos, (req, res, next) => {
